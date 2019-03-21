@@ -1,0 +1,19 @@
+---
+
+- name: Conf systemd no iptables
+  lineinfile:
+    path: "/lib/systemd/system/docker.service"
+    regexp: '^ExecStart=\/usr\/bin\/dockerd -H fd:\/\/'
+    line: 'ExecStart=/usr/bin/dockerd -H fd:// --iptables=false'
+  register: systemd
+
+- name: Conf init no iptables
+  lineinfile:
+    path: "/etc/init.d/docker"
+    regexp: '^DOCKER_OPTS='
+    line: 'DOCKER_OPTS="iptables=false"'
+
+- name: Reload Systemd
+  shell: systemctl daemon-reload
+  when: systemd.changed
+

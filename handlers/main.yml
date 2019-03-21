@@ -3,6 +3,7 @@
 
 - name: restart service
   service:
-    name: docker
+    name: "{{ item }}"
     state: restarted
+  with_items: "{{ docker_srv }}"
 

@@ -14,6 +14,9 @@
 - include: package.yml
   when: (state == 'install') or (state == 'uninstall')
 
+- include: configure.yml
+  when: (state == 'install') or (state == 'configure')
+
 - include: service.yml
-  when: (state == 'install')
+  when: (state == 'install') or (state == 'configure')
 
