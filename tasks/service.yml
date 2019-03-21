@@ -2,7 +2,7 @@
 
 - name: Start service
   service:
-    name: {{ item }}
+    name: "{{ item }}"
     state: started
     enabled: yes
   with_items: "{{ docker_srv }}"
