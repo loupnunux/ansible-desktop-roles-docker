@@ -1,0 +1,8 @@
+---
+
+docker_pkg:
+  - docker.io
+
+docker_srv:
+  - docker
+

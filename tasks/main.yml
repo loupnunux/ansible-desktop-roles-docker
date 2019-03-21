@@ -1,0 +1,16 @@
+---
+# tasks file for docker
+
+- name: Add the OS specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_os_family }}.yml"
+    - default.yml
+
+- set_fact:
+    state: "{{ state }}"
+
+- include: package.yml
+  when: (state == 'install') or (state == 'uninstall')
+

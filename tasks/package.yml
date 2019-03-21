@@ -1,0 +1,17 @@
+---
+
+- name: Setting fact for Install
+  set_fact:
+    pkg_state: "latest"
+  when: state == 'install'
+
+- name: Setting fact for Uninstall
+  set_fact:
+    pkg_state: "absent"
+  when: state == 'uninstall'
+
+- name: Packages | {{ state }}
+  package: name={{ item }} state={{ pkg_state }}
+  when: item is defined
+  with_items: "{{ docker_pkg }}"
+
