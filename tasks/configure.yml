@@ -1,11 +1,34 @@
 ---
 
+- name: Setting fact for Proxy
+  set_fact:
+    sys_path: "directory"
+  when: proxy.state == 'present'
+
+- name: Setting fact for no Proxy
+  set_fact:
+    sys_path: "absent"
+  when: proxy.state == 'absent'
+
+- name: Create a directory
+  file:
+    path: /etc/systemd/system/docker.service.d
+    state: "{{ sys_path }}"
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Proxy | {{ proxy.state }}
+  action: template dest=/etc/systemd/system/docker.service.d/http-proxy.conf src=http-proxy.conf.j2 owner=root group=root
+  when: proxy.state == 'present'
+  register: proxy
+
 - name: Conf systemd no iptables
   lineinfile:
     path: "/lib/systemd/system/docker.service"
     regexp: '^ExecStart=\/usr\/bin\/dockerd -H fd:\/\/'
     line: 'ExecStart=/usr/bin/dockerd -H fd:// --iptables=false'
-  register: systemd
+  register: iptable
 
 - name: Conf init no iptables
   lineinfile:
@@ -15,5 +38,6 @@
 
 - name: Reload Systemd
   shell: systemctl daemon-reload
-  when: systemd.changed
+  when: iptable.changed or proxy.changed
+  notify: Restart service
 

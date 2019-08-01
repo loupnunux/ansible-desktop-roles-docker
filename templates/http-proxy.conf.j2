@@ -1,0 +1,4 @@
+{% if proxy.state == 'present' %}
+[Service]
+Environment="HTTP_PROXY=http://{{ proxy.ip }}:{{ proxy.port }}/"
+{% endif %}
