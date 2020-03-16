@@ -15,7 +15,10 @@
   when: (state == 'install') or (state == 'uninstall')
 
 - include: configure.yml
-  when: (state == 'install') or (state == 'configure')
+  when: (state == 'install') or (state == 'configure') or (state == 'upgrade')
+
+- include: configure.yml
+  when: (state == 'upgrade')
 
 - include: service.yml
   when: (state == 'install') or (state == 'configure')

@@ -1,0 +1,5 @@
+---
+
+- name:  Upgrade images
+  shell: /opt/scripts/docker/upgrade.sh
+
