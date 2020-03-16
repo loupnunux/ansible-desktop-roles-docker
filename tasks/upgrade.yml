@@ -3,3 +3,9 @@
 - name:  Upgrade images
   shell: /opt/scripts/docker/upgrade.sh
 
+- name:  Down container
+  shell: /opt/scripts/docker/docker_down.sh
+
+- name:  Up container
+  shell: /opt/scripts/docker/docker_up.sh
+
