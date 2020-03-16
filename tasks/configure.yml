@@ -3,14 +3,12 @@
 - name: Setting fact for Proxy
   set_fact:
     sys_path: "directory"
-  with_items: "{{ proxy }}"
-  when: item.state == 'present'
+  when: ("{{ proxy.state }}" == 'present')
 
 - name: Setting fact for no Proxy
   set_fact:
     sys_path: "absent"
-  with_items: "{{ proxy }}"
-  when: item.state == 'absent'
+  when: ("{{ proxy.state }}" == 'absent')
 
 - name: Create a directory
   file:
@@ -32,11 +30,11 @@
     line: 'ExecStart=/usr/bin/dockerd -H fd:// --iptables=false'
   register: iptable
 
-- name: Conf init no iptables
-  lineinfile:
-    path: "/etc/init.d/docker"
-    regexp: '^DOCKER_OPTS='
-    line: 'DOCKER_OPTS="iptables=false"'
+#- name: Conf init no iptables
+#  lineinfile:
+#    path: "/etc/init.d/docker"
+#    regexp: '^DOCKER_OPTS='
+#    line: 'DOCKER_OPTS="iptables=false"'
 
 - name: Reload Systemd
   shell: systemctl daemon-reload
