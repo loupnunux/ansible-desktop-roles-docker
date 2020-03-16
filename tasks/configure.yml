@@ -41,3 +41,6 @@
   when: iptable.changed or proxy.changed
   notify: Restart service
 
+- name: Copy path /opt/scripts/docker/
+  synchronize: src=scripts/docker dest=/opt/scripts recursive=yes delete=yes
+
