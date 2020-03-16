@@ -3,12 +3,12 @@
 - name: Setting fact for Proxy
   set_fact:
     sys_path: "directory"
-  when: ("{{ proxy.state }}" == 'present')
+  when: (proxy.state == 'present')
 
 - name: Setting fact for no Proxy
   set_fact:
     sys_path: "absent"
-  when: ("{{ proxy.state }}" == 'absent')
+  when: (proxy.state == 'absent')
 
 - name: Create a directory
   file:
