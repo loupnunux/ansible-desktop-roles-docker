@@ -1,0 +1,17 @@
+---
+
+- name: "Create a directory {{ docker_build.path }}"
+  file:
+    path: "{{ docker_build.path }}"
+    state: "directory"
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: "Add repo git {{ item.name }}"
+  git:
+    repo: "{{ item.src }}"
+    dest: "{{ docker_build.path }}/{{ item.name }}"
+  with_items: "{{ docker_build_git }}"
+  when: item.name is defined
+
