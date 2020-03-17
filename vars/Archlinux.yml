@@ -2,6 +2,7 @@
 
 docker_pkg:
   - docker
+  - docker-compose
 
 docker_srv:
   - docker
