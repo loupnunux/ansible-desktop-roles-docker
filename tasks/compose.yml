@@ -8,17 +8,15 @@
     group: root
     mode: '0755'
 
-- name: user config
+- name: Copy file /opt/docker/docker_compose/docker-compose.yml
   synchronize:
     src: "{{ lookup('first_found', file) }}"
     dest: "/opt/docker/docker_compose/docker-compose.yml"
-    mode: 0644
-    backup: yes
   vars:
     file:
-      - "extra_perso/{{ ansible_hostname }}/docker/docker_compose/docker-compose.yml"
-      - "extra/{{ ansible_hostname }}/docker/docker_compose/docker-compose.yml"
-      - "files/docker_compose.yml"
+      - "../../extra_perso/{{ ansible_hostname }}/docker/docker_compose/docker-compose.yml"
+      - "../../extra/{{ ansible_hostname }}/docker/docker_compose/docker-compose.yml"
+      - "files/docker-compose.yml"
   register: compose
 
 - name:  Up container
