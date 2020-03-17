@@ -17,6 +17,9 @@
 - include: configure.yml
   when: (state == 'install') or (state == 'configure') or (state == 'upgrade')
 
+- include: compose.yml
+  when: (state == 'install') or (state == 'configure')
+
 - include: upgrade.yml
   when: (state == 'upgrade')
 

@@ -1,0 +1,27 @@
+---
+
+- name: Create a directory /opt/docker/docker_compose
+  file:
+    path: /opt/docker/docker_compose
+    state: "directory"
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: user config
+  synchronize:
+    src: "{{ lookup('first_found', file) }}"
+    dest: "/opt/docker/docker_compose/docker-compose.yml"
+    mode: 0644
+    backup: yes
+  vars:
+    file:
+      - "extra_perso/{{ ansible_hostname }}/docker/docker_compose/docker-compose.yml"
+      - "extra/{{ ansible_hostname }}/docker/docker_compose/docker-compose.yml"
+      - "files/docker_compose.yml"
+  register: compose
+
+- name:  Up container
+  shell: /opt/scripts/docker/docker_up.sh
+  when: compose.changed
+
