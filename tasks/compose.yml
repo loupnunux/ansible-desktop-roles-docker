@@ -1,17 +1,17 @@
 ---
 
-- name: Create a directory /opt/docker/docker_compose
+- name: Create a directory {{ docker_compose.path }}
   file:
-    path: /opt/docker/docker_compose
+    path: "{{ docker_compose.path }}"
     state: "directory"
     owner: root
     group: root
     mode: '0755'
 
-- name: Copy file /opt/docker/docker_compose/docker-compose.yml
+- name: Copy file "{{ docker_compose.path }}/docker-compose.yml"
   synchronize:
     src: "{{ lookup('first_found', file) }}"
-    dest: "/opt/docker/docker_compose/docker-compose.yml"
+    dest: "{{ docker_compose.path }}/docker-compose.yml"
   vars:
     file:
       - "../../extra_perso/{{ ansible_hostname }}/docker/docker_compose/docker-compose.yml"
@@ -20,6 +20,6 @@
   register: compose
 
 - name:  Up container
-  shell: /opt/scripts/docker/docker_up.sh
+  shell: "{{ docker_script.path }}/docker_up.sh"
   when: compose.changed
 

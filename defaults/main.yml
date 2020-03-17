@@ -6,3 +6,12 @@ proxy:
   ip: '0.0.0.0'
   port: '3128'
 
+docker_script:
+  path: '/opt/scripts/docker'
+
+docker_compose:
+  path: '/opt/docker/docker_compose'
+
+docker_build:
+  path: '/opt/docker/docker_build'
+
