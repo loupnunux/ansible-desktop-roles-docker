@@ -44,3 +44,11 @@
 - name: Copy path /opt/scripts/docker/
   synchronize: src=scripts/docker dest=/opt/scripts recursive=yes delete=yes
 
+- name: Copy file upgrade
+  action: template dest=/opt/scripts/docker/upgrade.sh src="{{ lookup('first_found', file) }}" owner=root group=root mode=755
+  vars:
+    file:
+      - "../../extra_perso/{{ ansible_hostname }}/docker/upgrade.sh"
+      - "../../extra/{{ ansible_hostname }}/docker/upgrade.sh"
+      - "templates/upgrade.sh.j2"
+
