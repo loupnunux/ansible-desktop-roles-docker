@@ -41,11 +41,11 @@
   when: iptable.changed or proxy.changed
   notify: Restart service
 
-- name: Copy path /opt/scripts/docker/
-  synchronize: src=scripts/docker dest=/opt/scripts recursive=yes delete=yes
+- name: "Copy path {{ docker_script.path }}"
+  synchronize: src=scripts/docker dest="{{ docker_script.opt_path }}" recursive=yes delete=yes
 
 - name: Copy file upgrade
-  action: template dest="{{ docker_script.path }}/upgrade.sh src="{{ lookup('first_found', file) }}" owner=root group=root mode=755
+  action: template dest="{{ docker_script.path }}/upgrade.sh" src="{{ lookup('first_found', file) }}" owner=root group=root mode=755
   vars:
     file:
       - "../../extra_perso/{{ ansible_hostname }}/docker/upgrade.sh"
