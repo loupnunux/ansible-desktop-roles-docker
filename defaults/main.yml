@@ -6,9 +6,10 @@ proxy:
   ip: '0.0.0.0'
   port: '3128'
 
+scripts_path: '/opt/scripts'
+
 docker_script:
-  opt_path: '/opt/scripts'
-  path: "{{ docker_script.opt_path }}/docker"
+  path: "{{ scripts_path }}/docker"
 
 docker_compose:
   path: '/opt/docker/docker_compose'

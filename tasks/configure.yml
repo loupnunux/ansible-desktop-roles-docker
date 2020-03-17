@@ -42,7 +42,7 @@
   notify: Restart service
 
 - name: "Copy path {{ docker_script.path }}"
-  synchronize: src=scripts/docker dest="{{ docker_script.opt_path }}" recursive=yes delete=yes
+  synchronize: src=scripts/docker dest="{{ scripts_path }}" recursive=yes delete=yes
 
 - name: Copy file upgrade
   action: template dest="{{ docker_script.path }}/upgrade.sh" src="{{ lookup('first_found', file) }}" owner=root group=root mode=755
