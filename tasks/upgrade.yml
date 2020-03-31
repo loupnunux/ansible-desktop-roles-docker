@@ -6,6 +6,9 @@
 - name:  Down container
   shell: /opt/scripts/docker/docker_down.sh
 
+- name:  Clean images
+  shell: /opt/scripts/docker/clean.sh
+
 - name:  Up container
   shell: /opt/scripts/docker/docker_up.sh
 
